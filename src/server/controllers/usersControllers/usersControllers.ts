@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import type { NextFunction, Request, Response } from "express";
-import User from "../../../database/models/User";
+import CustomError from "../../../CustomError/CustomError.js";
+import User from "../../../database/models/User.js";
 import type { RegisterData } from "../../types";
 
 export const registerUser = async (
@@ -18,11 +19,11 @@ export const registerUser = async (
     });
     res.status(201).json({ user: { id: newUser._id, username } });
   } catch (error: unknown) {
-    /* Const generalError = new CustomError(
+    const generalError = new CustomError(
       (error as Error).message,
       500,
       "Error"
     );
-    next(generalError); */
+    next(generalError);
   }
 };
