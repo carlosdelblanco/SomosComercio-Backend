@@ -1,11 +1,15 @@
+import "../loadEnvironment.js";
+
+import chalk from "chalk";
 import debug from "debug";
 import mongoose from "mongoose";
-import "../loadEnvironment.js";
 
 const debugInfo = debug("somoscomercio:database");
 
 const databaseConnection = async (mongoUrl: string) => {
   await mongoose.connect(mongoUrl);
+
+  debugInfo(chalk.blue(`Connection to db was successful`));
 
   mongoose.set("toJSON", {
     virtuals: true,
