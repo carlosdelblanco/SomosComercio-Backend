@@ -4,6 +4,7 @@ import morgan from "morgan";
 import usersRouters from "./routes/usersRouters.js";
 
 const app = express();
+app.disable("x-powered-by");
 app.use(cors());
 
 app.use(express.json());
