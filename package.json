@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "chalk": "^5.1.2",
     "cors": "^2.8.5",
     "debug": "^4.3.4",
     "dotenv": "^16.0.3",
