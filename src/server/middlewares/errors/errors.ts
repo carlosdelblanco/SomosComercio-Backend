@@ -13,6 +13,6 @@ export const generalError = (
   next: NextFunction
 ) => {
   const statusCode = error.statusCode ?? 500;
-  const responseMessage = error.responseMessage || "General Error";
+  const responseMessage = error.publicMessage || "General Error";
   res.status(statusCode).json({ error: responseMessage });
 };
