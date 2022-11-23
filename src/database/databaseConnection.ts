@@ -20,7 +20,6 @@ const databaseConnection = async (mongoUrl: string) => {
       return ret;
     },
   });
-  debugInfo("Connected to database");
 };
 
 export default databaseConnection;

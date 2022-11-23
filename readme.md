@@ -13,6 +13,11 @@
 
 ## USER
 
+- username
+- password
+
+## BUSINESS
+
 - business name
 - category
 - slogan
@@ -20,8 +25,3 @@
 - adhesion date
 - contact number
 - business image
-
-## BUSINESS
-
-- username
-- password
