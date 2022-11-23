@@ -46,7 +46,7 @@ describe("Given a POST /users/signup endpoint", () => {
   });
 
   describe("When it receives a request with username: 'carlos', password: 'carlos' which already exists", () => {
-    test("Then it should respond witch code status 500 and the error 'Unable to register", async () => {
+    test("Then it should respond witch code status 500 and the error 'Error", async () => {
       await User.create({
         username: "carlos",
         email: "car@los.com",
