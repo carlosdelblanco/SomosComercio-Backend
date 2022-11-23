@@ -2,7 +2,7 @@ import cors from "cors";
 import express from "express";
 import morgan from "morgan";
 import { endpointError, generalError } from "./middlewares/errors/errors.js";
-import usersRouters from "./routes/usersRouters.js";
+import usersRouters from "./routers/usersRouters.js";
 
 const app = express();
 app.disable("x-powered-by");

@@ -17,7 +17,7 @@ export const registerUser = async (
       username,
       password: hashedPassword,
     });
-    res.status(201).json({ user: { id: newUser._id, username } });
+    res.status(201).json({ data: `${newUser.username} has been registered` });
   } catch (error: unknown) {
     const generalError = new CustomError(
       (error as Error).message,
