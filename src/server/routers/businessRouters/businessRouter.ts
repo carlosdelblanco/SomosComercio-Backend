@@ -1,0 +1,9 @@
+import express from "express";
+import { loadAllBusiness } from "../../controllers/businessControllers/businessControllers.js";
+
+// eslint-disable-next-line new-cap
+const businessRouter = express.Router();
+
+businessRouter.get("/loadAllBusiness", loadAllBusiness);
+
+export default businessRouter;
