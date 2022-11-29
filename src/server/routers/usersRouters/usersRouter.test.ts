@@ -1,10 +1,10 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import request from "supertest";
-import databaseConnection from "../../database/databaseConnection";
-import User from "../../database/models/User";
-import app from "../app";
-import type { RegisterData } from "../types";
+import databaseConnection from "../../../database/databaseConnection";
+import User from "../../../database/models/User";
+import app from "../../app";
+import type { RegisterData } from "../../types";
 
 let server: MongoMemoryServer;
 
