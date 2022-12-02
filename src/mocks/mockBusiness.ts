@@ -1,4 +1,5 @@
 export const mockBusiness = {
+  id: "6385c39d49763ed9df71256e",
   businessName: "Peluqueria",
   category: "Belleza",
   slogan: "Te cuidamos",
