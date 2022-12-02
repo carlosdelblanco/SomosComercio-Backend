@@ -32,3 +32,23 @@ export const loadAllBusiness = async (
     next(noContactsError);
   }
 };
+
+export const deleteBusiness = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { businessId } = req.params;
+    const businessToDelete = await Business.findByIdAndDelete(businessId);
+
+    res.status(200).json(businessToDelete);
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      (error as Error).message,
+      404,
+      "Business not found"
+    );
+    next(customError);
+  }
+};

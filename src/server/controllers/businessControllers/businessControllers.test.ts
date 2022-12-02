@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from "express";
 import CustomError from "../../../CustomError/CustomError";
 import Business from "../../../database/models/Business";
 import { mockBusiness } from "../../../mocks/mockBusiness";
-import { loadAllBusiness } from "./businessControllers";
+import { deleteBusiness, loadAllBusiness } from "./businessControllers";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -55,13 +55,36 @@ describe("Given a business controller", () => {
         "Empty business database"
       );
 
-      Business.find = jest.fn().mockResolvedValueOnce("");
+      Business.find = jest.fn().mockResolvedValueOnce(null);
       await loadAllBusiness(
         req as Request,
         res as Response,
         next as NextFunction
       );
       expect(next).toHaveBeenCalledWith(customError);
+    });
+  });
+
+  describe("Given a deleteBusiness controller", () => {
+    describe("When it receives a request with businessId", () => {
+      test("Then it shouldreturn a response and call it's method status code and method json", async () => {
+        const expectedStatus = 200;
+        const businessToDelete = mockBusiness;
+        const req: Partial<Request> = {
+          params: { businessId: mockBusiness.id },
+        };
+        Business.findByIdAndDelete = jest
+          .fn()
+          .mockReturnValue(businessToDelete);
+
+        await deleteBusiness(
+          req as Request,
+          res as Response,
+          next as NextFunction
+        );
+        expect(res.status).toHaveBeenCalledWith(expectedStatus);
+        expect(res.json).toHaveBeenCalledWith(businessToDelete);
+      });
     });
   });
 });
