@@ -67,7 +67,7 @@ describe("Given a business controller", () => {
 
   describe("Given a deleteBusiness controller", () => {
     describe("When it receives a request with businessId", () => {
-      test("Then it shouldreturn a response and call it's method status code and method json", async () => {
+      test("Then it should return a response and call it's method status code and method json", async () => {
         const expectedStatus = 200;
         const businessToDelete = mockBusiness;
         const req: Partial<Request> = {
@@ -84,6 +84,30 @@ describe("Given a business controller", () => {
         );
         expect(res.status).toHaveBeenCalledWith(expectedStatus);
         expect(res.json).toHaveBeenCalledWith(businessToDelete);
+      });
+    });
+    describe("When it receives a request without any businessId", () => {
+      test("Then the next function should be called with a custom error with public message 'Negocio no encontrado'", async () => {
+        const req: Partial<Request> = {
+          params: { businessId: mockBusiness.id },
+        };
+        const expectedError = new CustomError(
+          "negocio no encontrado",
+          404,
+          "negocio no encontrado"
+        );
+
+        Business.findByIdAndDelete = jest
+          .fn()
+          .mockRejectedValueOnce(expectedError);
+
+        await deleteBusiness(
+          req as Request,
+          res as Response,
+          next as NextFunction
+        );
+
+        expect(next).toHaveBeenCalledWith(expectedError);
       });
     });
   });
