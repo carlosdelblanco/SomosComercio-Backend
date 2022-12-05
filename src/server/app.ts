@@ -15,12 +15,6 @@ app.use(morgan("dev"));
 app.use("/users", usersRouters);
 app.use("/business", businessRouter);
 
-app.get("/", (req, res) => {
-  res.status(200).json({
-    message: "API Somos Comercio",
-  });
-});
-
 app.use(generalError);
 app.use(endpointError);
 
