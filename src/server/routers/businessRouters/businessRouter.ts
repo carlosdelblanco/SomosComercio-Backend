@@ -5,7 +5,7 @@ import {
   loadAllBusiness,
 } from "../../controllers/businessControllers/businessControllers.js";
 
-// eslint-disable-next-line <new-cap></new-cap>
+// eslint-disable-next-line
 const businessRouter = express.Router();
 
 businessRouter.get("/loadAllBusiness", loadAllBusiness);
