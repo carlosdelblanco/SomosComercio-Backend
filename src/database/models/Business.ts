@@ -1,3 +1,4 @@
+import type { InferSchemaType } from "mongoose";
 import { model, Schema } from "mongoose";
 
 const businessSchema = new Schema({
@@ -32,7 +33,6 @@ const businessSchema = new Schema({
   },
 });
 
+export type BusinessStructure = InferSchemaType<typeof businessSchema>;
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const Business = model("Business", businessSchema, "business");
-
-export default Business;
+export const Business = model("Business", businessSchema, "business");

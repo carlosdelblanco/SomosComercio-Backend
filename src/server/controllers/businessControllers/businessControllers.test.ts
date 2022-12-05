@@ -1,8 +1,12 @@
 import type { NextFunction, Request, Response } from "express";
 import CustomError from "../../../CustomError/CustomError";
-import Business from "../../../database/models/Business";
+import { Business } from "../../../database/models/Business";
 import { mockBusiness } from "../../../mocks/mockBusiness";
-import { deleteBusiness, loadAllBusiness } from "./businessControllers";
+import {
+  createBusiness,
+  deleteBusiness,
+  loadAllBusiness,
+} from "./businessControllers";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -109,6 +113,55 @@ describe("Given a business controller", () => {
 
         expect(next).toHaveBeenCalledWith(expectedError);
       });
+    });
+  });
+
+  describe("Given a createBusiness controller", () => {
+    describe("When it receives a request", () => {
+      test("Then it should invoke it's response with status 201 and the new business", async () => {
+        const expectedStatus = 201;
+        const business = mockBusiness;
+        const expectedResponse = { ...business };
+        const req: Partial<Request> = {
+          params: { userId: mockBusiness.id },
+        };
+
+        req.body = business;
+
+        Business.create = jest.fn().mockReturnValueOnce({
+          ...business,
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          toJSON: jest.fn().mockReturnValueOnce(business),
+        });
+
+        await createBusiness(
+          req as Request,
+          res as Response,
+          next as NextFunction
+        );
+
+        expect(res.status).toHaveBeenCalledWith(expectedStatus);
+        expect(res.json).toHaveBeenCalledWith({ business: expectedResponse });
+      });
+    });
+  });
+
+  describe("When it receives a request and create rejects", () => {
+    test("Then it should be invoked with an error", async () => {
+      const req: Partial<Request> = {
+        params: {},
+      };
+      const error = new Error();
+
+      Business.create = jest.fn().mockRejectedValue(error);
+
+      await createBusiness(
+        req as Request,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalledWith(error);
     });
   });
 });
